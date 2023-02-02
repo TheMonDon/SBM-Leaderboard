@@ -46,7 +46,7 @@ export default function Dev() {
   }
 
   return (
-    <div className="bg-background h-screen w-screen flex flex-col">
+    <div className="bg-background h-screen w-screen flex flex-col overflow-x-hidden">
       <div className="flex flex-row pt-10">
         <div className="w-1/2 mx-auto">
           <div className="flex flex-row items-stretch text-primary-3 m-4 mb-8">
