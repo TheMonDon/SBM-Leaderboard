@@ -39,6 +39,7 @@ export default NextAuth({
 
       const connections = await oauth.getUserConnections(token.accessToken);
       session.user.steamId = connections.find(c => c.type === 'steam')?.id;
+      session.user.steamName = connections.find(c => c.type === 'steam')?.name;
 
       await Users.upsert({
         discord_id: session.user.id,
