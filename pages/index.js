@@ -15,6 +15,8 @@ export default function Dev() {
   const [leaderboardLoading, setLeaderboardLoading] = useState(true);
   const [steamLinked, setSteamLinked] = useState(false);
   const [steamLoading, setSteamLoading] = useState(true);
+  const [githubStarList, setGithubStarList] = useState([]);
+  const [githubStarListLoading, setGithubStarListLoading] = useState(true);
   const [top, setTop] = useState([]);
   const quoteRef = useRef(null);
 
@@ -40,14 +42,27 @@ export default function Dev() {
       })
   }, []);
 
+  useEffect(() => {
+    fetch('https://api.github.com/repos/OneAndonlyFinbar/dbm-leaderboard/stargazers')
+      .then(res => res.json())
+      .then(data => {
+        setGithubStarList(data);
+        setGithubStarListLoading(false);
+      });
+  }, []);
+
   const setQuote = async () => {
     const quote = quoteRef.current.value;
 
-    fetch(`/api/core/quote?quote=${quote}`)
+    fetch(`/api/core/quote?quote=${quote}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
       .then(res => res.json())
       .then(data => {
         alert(data.success ? 'Quote updated!' : 'Error updating quote!');
-      });
+      })
   }
 
   return (
@@ -113,6 +128,21 @@ export default function Dev() {
                       </p>
                     </div>
                   )}
+                  <hr className="border-primary-3 my-4"/>
+                  <div className="flex flex-col items-center text-primary-3">
+                    <h1 title="Star this project on github to get your name on this list!">⭐</h1>
+                    {githubStarListLoading ? (
+                      <div className="flex flex-row justify-center">
+                        <Triangle/>
+                      </div>
+                    ) : (
+                      githubStarList.map((user, index) => (
+                        <div className="flex flex-row items-center" key={index}>
+                          <p className="mr-2">{user.login}</p>
+                        </div>
+                      ))
+                    )}
+                  </div>
                 </div>
               ) : (
                 <div>
