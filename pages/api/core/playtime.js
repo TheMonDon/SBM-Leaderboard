@@ -12,10 +12,10 @@ export default async function handler(req, res) {
       `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${STEAM_API_KEY}&steamid=${id}&format=json&include_appinfo=1`
     )
     .then(async (response) => {
-      const DBM = response.data.response.games.find(
+      const SBM = response.data.response.games.find(
         (game) => game.appid === 2592170
       );
-      const { playtime_forever } = DBM;
+      const { playtime_forever } = SBM;
 
       try {
         await Users.update(

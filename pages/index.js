@@ -83,7 +83,8 @@ export default function Dev() {
                 key={index}
               >
                 <h1>
-                  {user?.discord_name}#{user?.discord_tag}
+                  {user?.discord_name}
+                  {user?.discord_tag === "0" ? "" : `#${user?.discord_tag}`}
                 </h1>
                 <p>{Math.floor(user?.playtime / 60)} Hours</p>
                 <img
@@ -103,6 +104,7 @@ export default function Dev() {
               </div>
             ))}
           </div>
+
           <div className="flex flex-col w-full bg-primary-1 rounded-md">
             {!leaderboardLoading ? (
               leaderboard.map((user, index) => (
@@ -124,7 +126,8 @@ export default function Dev() {
                     {leaderboard.indexOf(user) + 1}
                   </p>
                   <p>
-                    {user?.discord_name}#{user?.discord_tag}
+                    {user?.discord_name}
+                    {user?.discord_tag === "0" ? "" : `#${user?.discord_tag}`}
                   </p>
                   <p className="ml-auto mr-2">
                     {Math.floor(user?.playtime / 60)} Hours
@@ -138,6 +141,7 @@ export default function Dev() {
             )}
           </div>
         </div>
+
         <div className="flex w-1/4 mx-auto justify-center border-red-500">
           <div className="flex flex-col w-full">
             {loggedIn ? (
@@ -233,6 +237,7 @@ export default function Dev() {
           </div>
         </div>
       </div>
+
       <div className="flex flex-row justify-center mt-auto">
         <div className="flex flex-col text-primary-3 text-center m-4">
           <p>
