@@ -234,12 +234,21 @@ export default function Dev() {
           <p>
             Made by{" "}
             <a
+              href="https://github.com/OneAndonlyFinbar"
+              target="_blank"
+              rel="noreferrer"
+              className="text-blue-500"
+            >
+              Finbar
+            </a>
+            &
+            <a
               href="https://github.com/TheMonDon"
               target="_blank"
               rel="noreferrer"
               className="text-blue-500"
             >
-              Finbar & TheMonDon
+              TheMonDon
             </a>
           </p>
           <a
