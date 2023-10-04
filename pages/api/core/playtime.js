@@ -16,18 +16,24 @@ export default async function handler(req, res) {
         (game) => game.appid === 2592170
       );
       const { playtime_forever } = DBM;
-      await Users.update(
-        {
-          playtime: playtime_forever,
-          steam_id: id,
-          last_updated: new Date().toISOString(),
-        },
-        {
-          where: {
-            discord_id: discordSession.user.id,
+
+      try {
+        await Users.update(
+          {
+            playtime: playtime_forever,
+            steam_id: id,
+            last_updated: new Date().toISOString(),
           },
-        }
-      );
+          {
+            where: {
+              discord_id: discordSession.user.id,
+            },
+          }
+        );
+      } catch (err) {
+        console.error(err);
+      }
+
       res.status(200).json({ playtime: playtime_forever });
     })
     .catch((err) => {

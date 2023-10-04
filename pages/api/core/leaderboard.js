@@ -1,5 +1,6 @@
 import Users from "../../../database/Users";
 import { Op } from "sequelize";
+
 export default async function handler(req, res) {
   const users = await Users.findAll({
     attributes: [

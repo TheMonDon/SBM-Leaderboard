@@ -29,7 +29,8 @@ export default function Dev() {
         setPlaytime(data.playtime);
         setSteamLinked(true);
         setSteamLoading(false);
-      });
+      })
+      .catch(console.error);
   }, [session, status]);
 
   useEffect(() => {
@@ -40,7 +41,8 @@ export default function Dev() {
         setTop([sorted[1], sorted[0], sorted[2]]);
         setLeaderboard(data);
         setLeaderboardLoading(false);
-      });
+      })
+      .catch(console.error);
   }, []);
 
   useEffect(() => {
@@ -49,7 +51,8 @@ export default function Dev() {
       .then((data) => {
         setGithubStarList(data);
         setGithubStarListLoading(false);
-      });
+      })
+      .catch(console.error);
   }, []);
 
   const setQuote = async () => {
@@ -63,7 +66,8 @@ export default function Dev() {
       .then((res) => res.json())
       .then((data) => {
         alert(data.success ? "Quote updated!" : "Error updating quote!");
-      });
+      })
+      .catch(console.error);
   };
 
   return (
@@ -79,11 +83,11 @@ export default function Dev() {
                 key={index}
               >
                 <h1>
-                  {user.discord_name}#{user.discord_tag}
+                  {user?.discord_name}#{user?.discord_tag}
                 </h1>
-                <p>{Math.floor(user.playtime / 60)} Hours</p>
+                <p>{Math.floor(user?.playtime / 60)} Hours</p>
                 <img
-                  src={user.discord_profile_picture}
+                  src={user?.discord_profile_picture}
                   alt="Profile Picture"
                   className={`rounded-full border-4 m-2 my-2" ${
                     [
@@ -120,10 +124,10 @@ export default function Dev() {
                     {leaderboard.indexOf(user) + 1}
                   </p>
                   <p>
-                    {user.discord_name}#{user.discord_tag}
+                    {user?.discord_name}#{user?.discord_tag}
                   </p>
                   <p className="ml-auto mr-2">
-                    {Math.floor(user.playtime / 60)} Hours
+                    {Math.floor(user?.playtime / 60)} Hours
                   </p>
                 </div>
               ))
