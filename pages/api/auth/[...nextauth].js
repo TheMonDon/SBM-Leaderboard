@@ -1,12 +1,12 @@
-import NextAuth from 'next-auth';
-import Users from '../../../database/Users';
-import DiscordProvider from 'next-auth/providers/discord'
-import * as DiscordOauth2 from 'discord-oauth2';
+import NextAuth from "next-auth";
+import Users from "../../../database/Users";
+import DiscordProvider from "next-auth/providers/discord";
+import * as DiscordOauth2 from "discord-oauth2";
 
 const oauth = new DiscordOauth2({
   clientId: process.env.DISCORD_CLIENT_ID,
-  clientSecret: process.env.DISCORD_CLIENT_SECRET
-})
+  clientSecret: process.env.DISCORD_CLIENT_SECRET,
+});
 
 export default NextAuth({
   providers: [
@@ -15,10 +15,10 @@ export default NextAuth({
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
       authorization: {
         params: {
-          scope: 'identify connections'
-        }
-      }
-    })
+          scope: "identify connections",
+        },
+      },
+    }),
   ],
   callbacks: {
     async jwt({ token, profile, account }) {
@@ -38,8 +38,10 @@ export default NextAuth({
       session.user.locale = token.locale;
 
       const connections = await oauth.getUserConnections(token.accessToken);
-      session.user.steamId = connections.find(c => c.type === 'steam')?.id;
-      session.user.steamName = connections.find(c => c.type === 'steam')?.name;
+      session.user.steamId = connections.find((c) => c.type === "steam")?.id;
+      session.user.steamName = connections.find(
+        (c) => c.type === "steam"
+      )?.name;
 
       await Users.upsert({
         discord_id: session.user.id,
@@ -50,10 +52,9 @@ export default NextAuth({
       });
 
       return session;
-    }
+    },
   },
   events: {
-    async signIn({ user, account, profile, email, credentials }) {
-    }
-  }
+    async signIn({ user, account, profile, email, credentials }) {},
+  },
 });
